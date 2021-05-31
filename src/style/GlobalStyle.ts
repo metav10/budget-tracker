@@ -4,6 +4,8 @@ export const GlobalStyle = createGlobalStyle`
     html,
     body {
         height: 100%;
+        background: #fafafa;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     * {
@@ -14,5 +16,10 @@ export const GlobalStyle = createGlobalStyle`
 
     a {
         text-decoration: none;
+    }
+
+    h1,h2 {
+        padding: 20px;
+        font-weight: 500;
     }
 `
