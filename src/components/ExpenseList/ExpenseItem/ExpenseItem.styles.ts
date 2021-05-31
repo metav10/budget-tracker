@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { Close as CloseIcon } from '@styled-icons/material-rounded/Close'
+import { Colors } from '../../../style/CssVars'
 
 const height = '18px'
 
 export const ExpenseItem = styled.div`
     display: flex;
     padding: 20px 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid ${Colors.Gray};
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
@@ -30,8 +31,8 @@ export const Cost = styled.span`
     align-items: center;
     border-radius: 40px;
     padding: 0 14px;
-    background-color: #047bfe;
-    color: #fff;
+    background-color: ${Colors.Blue};
+    color: ${Colors.White};
     font-weight: 600;
     width: fit-content;
     height: ${height};
@@ -41,5 +42,5 @@ export const Cost = styled.span`
 export const Close = styled(CloseIcon)`
     height: ${height};
     cursor: pointer;
-    color: #23292f;
+    color: ${Colors.MainBlack};
 `

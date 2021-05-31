@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
     }
 
-    h1,h2 {
+    h1, h2 {
         padding: 20px;
         font-weight: 500;
     }
