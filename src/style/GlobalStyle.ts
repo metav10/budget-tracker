@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { Colors } from './CssVars'
 
 export const GlobalStyle = createGlobalStyle`
     html,
@@ -6,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
         height: 100%;
         background: #fafafa;
         font-family: Arial, Helvetica, sans-serif;
+        color: ${Colors.MainBlack}
     }
 
     * {

@@ -1,16 +1,20 @@
-import React from 'react'
-import { ExpenseItem as ExpenseItemInterface } from '../../../lib/interfaces'
-import * as S from './ExpenseItem.styles'
+import { useContext } from 'react'
+import { AppContext } from '../../../context/AppContext'
+import {
+    ActionsTypes,
+    ExpenseItem as ExpenseItemInterface,
+} from '../../../lib/interfaces'
+import ExpenseItemContent from './ExpenseItemContent'
 
-const ExpenseItem = ({ item: { id, name, cost } }: { item: ExpenseItemInterface }) => {
+const ExpenseItem = ({ item }: { item: ExpenseItemInterface }) => {
+    const { dispatch } = useContext(AppContext)
+
+    const removeExpenseItem = (id: string) => {
+        dispatch({ type: ActionsTypes.REMOVE_EXPENSE, payload: { id } })
+    }
+
     return (
-        <S.ExpenseItem>
-            <S.Name>{name}</S.Name>
-            <S.Side>
-                <S.Cost>{cost}</S.Cost>
-                <S.Close />
-            </S.Side>
-        </S.ExpenseItem>
+        <ExpenseItemContent item={item} removeExpenseItem={removeExpenseItem} />
     )
 }
 export default ExpenseItem

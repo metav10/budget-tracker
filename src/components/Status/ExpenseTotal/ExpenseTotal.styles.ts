@@ -1,3 +1,7 @@
-import styled from 'styled-components'
+import { css } from 'styled-components'
+import { Colors } from '../../../style/CssVars'
 
-export const ExpenseTotal = styled.div``
+export const ExpenseTotalTheme = css`
+    background-color: ${Colors.LightBlue};
+    color: ${Colors.DarkBlue};
+`

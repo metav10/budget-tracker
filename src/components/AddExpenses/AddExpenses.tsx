@@ -1,22 +1,35 @@
-import React from 'react'
-import * as S from './AddExpenses.styles'
+import React, { useContext, useState } from 'react'
+import { v4 as uuid } from 'uuid'
+import { AppContext } from '../../context/AppContext'
+import { ActionsTypes, ExpenseItem } from '../../lib/interfaces'
+import AddExpensesContent from './AddExpensesContent'
 
-const AddExpenses = ({}: {}) => {
+const AddExpenses = () => {
+    const { dispatch } = useContext(AppContext)
+    const [name, setName] = useState<string>('')
+    const [cost, setCost] = useState<string>('')
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const expenseItem = {
+            id: uuid(),
+            name,
+            cost: parseInt(cost),
+        } as ExpenseItem
+
+        dispatch({ type: ActionsTypes.ADD_EXPENSE, payload: expenseItem })
+        setName('')
+        setCost('')
+    }
+
     return (
-        <S.AddExpenses>
-            <S.Line>
-                <S.Label htmlFor="expense">Expense</S.Label>
-                <S.Input type="text" id="expense" required autoFocus/>
-            </S.Line>
-            <S.Line>
-                <S.Label htmlFor="cost">Cost</S.Label>
-                <S.Input type="number" id="cost" required />
-            </S.Line>
-            <S.Line>
-                <S.Label />
-                <S.Submit type="submit" value="Add" />
-            </S.Line>
-        </S.AddExpenses>
+        <AddExpensesContent
+            name={name}
+            setName={setName}
+            cost={cost}
+            setCost={setCost}
+            onSubmit={onSubmit}
+        />
     )
 }
 export default AddExpenses

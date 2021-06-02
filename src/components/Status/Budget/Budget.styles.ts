@@ -1,3 +1,7 @@
-import styled from 'styled-components'
+import { css } from 'styled-components'
+import { Colors } from '../../../style/CssVars'
 
-export const Budget = styled.div``
+export const BudgetTheme = css`
+    background-color: ${Colors.Gray};
+    color: ${Colors.MainBlack};
+`
