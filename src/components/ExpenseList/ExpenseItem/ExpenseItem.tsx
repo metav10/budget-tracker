@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { deleteTodo } from '../../../API'
 import { AppContext } from '../../../context/AppContext'
 import {
     ActionsTypes,
@@ -9,8 +10,16 @@ import ExpenseItemContent from './ExpenseItemContent'
 const ExpenseItem = ({ item }: { item: ExpenseItemInterface }) => {
     const { dispatch } = useContext(AppContext)
 
-    const removeExpenseItem = (id: string) => {
-        dispatch({ type: ActionsTypes.REMOVE_EXPENSE, payload: { id } })
+    const removeExpenseItem = async (id: string) => {
+        try {
+            const newExpenses = await deleteTodo(id)
+            dispatch({
+                type: ActionsTypes.UPDATE_EXPENSES,
+                payload: newExpenses.data.expenses,
+            })
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (

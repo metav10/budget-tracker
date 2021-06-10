@@ -3,12 +3,8 @@ import { Actions, InitialState } from '../lib/interfaces'
 import AppReducer from './AppReducer'
 
 const initialState: InitialState = {
-    budget: 2000,
-    expenses: [
-        { id: '12', name: 'shopping', cost: 40 },
-        { id: '13', name: 'holiday', cost: 400 },
-        { id: '14', name: 'car service', cost: 50 },
-    ],
+    budget: 0,
+    expenses: [],
 }
 
 export const AppContext = createContext<{

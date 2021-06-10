@@ -2,7 +2,7 @@ import { ExpenseItem } from '../../../lib/interfaces'
 import * as S from './ExpenseItem.styles'
 
 const ExpenseItemContent = ({
-    item: { id, name, cost },
+    item: { _id: id, name, cost },
     removeExpenseItem,
 }: {
     item: ExpenseItem

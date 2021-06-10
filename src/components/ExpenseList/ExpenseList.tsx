@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { ExpenseItem as ExpenseItemInterface } from '../../lib/interfaces'
 import ExpenseItem from './ExpenseItem/ExpenseItem'
@@ -8,14 +8,13 @@ const ExpenseList = () => {
     const {
         state: { expenses },
     } = useContext(AppContext)
+
     return (
         <S.ExpenseList>
             {expenses.length > 0 &&
-                expenses.map(
-                    (item: ExpenseItemInterface, itemIndex: React.Key) => (
-                        <ExpenseItem key={itemIndex} item={item} />
-                    )
-                )}
+                expenses.map((item: ExpenseItemInterface) => (
+                    <ExpenseItem key={item._id} item={item} />
+                ))}
         </S.ExpenseList>
     )
 }

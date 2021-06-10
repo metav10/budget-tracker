@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { v4 as uuid } from 'uuid'
+import { addExpense } from '../../API'
 import { AppContext } from '../../context/AppContext'
 import { ActionsTypes, ExpenseItem } from '../../lib/interfaces'
 import AddExpensesContent from './AddExpensesContent'
@@ -9,17 +9,24 @@ const AddExpenses = () => {
     const [name, setName] = useState<string>('')
     const [cost, setCost] = useState<string>('')
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const expenseItem = {
-            id: uuid(),
             name,
             cost: parseInt(cost),
-        } as ExpenseItem
+        } as Omit<ExpenseItem, '_id'>
 
-        dispatch({ type: ActionsTypes.ADD_EXPENSE, payload: expenseItem })
-        setName('')
-        setCost('')
+        try {
+            const newExpenses = await addExpense(expenseItem)
+            dispatch({
+                type: ActionsTypes.UPDATE_EXPENSES,
+                payload: newExpenses.data.expenses,
+            })
+            setName('')
+            setCost('')
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return (

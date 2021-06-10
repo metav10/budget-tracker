@@ -20,6 +20,11 @@ export default function AppReducer(
     action: Actions
 ): InitialState {
     switch (action.type) {
+        case ActionsTypes.UPDATE_EXPENSES:
+            return {
+                ...state,
+                expenses: action.payload,
+            }
         case ActionsTypes.ADD_EXPENSE:
             return {
                 ...state,
@@ -29,7 +34,7 @@ export default function AppReducer(
             return {
                 ...state,
                 expenses: state.expenses.filter(
-                    exp => exp.id !== action.payload.id
+                    exp => exp._id !== action.payload._id
                 ),
             }
     }
