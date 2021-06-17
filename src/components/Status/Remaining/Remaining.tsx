@@ -5,7 +5,10 @@ import * as S from './Remaining.styles'
 
 const Remaining = () => {
     const {
-        state: { expenses, budget },
+        state: {
+            expenses,
+            user: { budget },
+        },
     } = useContext(AppContext)
 
     const totalExpenses = expenses.reduce(

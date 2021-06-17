@@ -37,5 +37,10 @@ export default function AppReducer(
                     exp => exp._id !== action.payload._id
                 ),
             }
+        case ActionsTypes.USER_LOGGED:
+            return {
+                ...state,
+                user: action.payload,
+            }
     }
 }

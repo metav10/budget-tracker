@@ -5,7 +5,10 @@ import { ActionsTypes, ExpenseItem } from '../../lib/interfaces'
 import AddExpensesContent from './AddExpensesContent'
 
 const AddExpenses = () => {
-    const { dispatch } = useContext(AppContext)
+    const {
+        dispatch,
+        state: { user },
+    } = useContext(AppContext)
     const [name, setName] = useState<string>('')
     const [cost, setCost] = useState<string>('')
 
@@ -17,7 +20,7 @@ const AddExpenses = () => {
         } as Omit<ExpenseItem, '_id'>
 
         try {
-            const newExpenses = await addExpense(expenseItem)
+            const newExpenses = await addExpense(expenseItem, user._id)
             dispatch({
                 type: ActionsTypes.UPDATE_EXPENSES,
                 payload: newExpenses.data.expenses,

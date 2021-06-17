@@ -8,11 +8,14 @@ import {
 import ExpenseItemContent from './ExpenseItemContent'
 
 const ExpenseItem = ({ item }: { item: ExpenseItemInterface }) => {
-    const { dispatch } = useContext(AppContext)
+    const {
+        dispatch,
+        state: { user },
+    } = useContext(AppContext)
 
     const removeExpenseItem = async (id: string) => {
         try {
-            const newExpenses = await deleteTodo(id)
+            const newExpenses = await deleteTodo(id, user._id)
             dispatch({
                 type: ActionsTypes.UPDATE_EXPENSES,
                 payload: newExpenses.data.expenses,

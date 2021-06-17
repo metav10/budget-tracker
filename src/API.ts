@@ -1,18 +1,25 @@
-import axios, { AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import {
+    ExpenseItem,
+    User,
     GetExpensesApi,
     AddExpenseApi,
-    ExpenseItem,
     RemoveExpenseApi,
+    GetUserApi,
     API_PATHS,
 } from './lib/interfaces'
+import axios from './lib/axios'
 
-const baseUrl: string = 'http://localhost:9000'
+const pathWithUserId = (path: string, userId: string) =>
+    path.replace(':userId', userId)
+const pathWithId = (path: string, _id: string) => path.replace(':_id', _id)
 
-export const getExpenses = async (): Promise<AxiosResponse<GetExpensesApi>> => {
+export const getExpenses = async (
+    userId: string
+): Promise<AxiosResponse<GetExpensesApi>> => {
     try {
         const expenses: AxiosResponse<GetExpensesApi> = await axios.get(
-            baseUrl + API_PATHS.expenses
+            pathWithUserId(API_PATHS.expenses, userId)
         )
         return expenses
     } catch (err) {
@@ -21,15 +28,17 @@ export const getExpenses = async (): Promise<AxiosResponse<GetExpensesApi>> => {
 }
 
 export const addExpense = async (
-    data: Omit<ExpenseItem, '_id'>
+    data: Omit<ExpenseItem, '_id'>,
+    userId: string
 ): Promise<AxiosResponse<AddExpenseApi>> => {
     try {
-        const expense: Omit<ExpenseItem, '_id'> = {
-            name: data.name,
-            cost: data.cost,
+        const { name, cost } = data
+        const expense: Omit<ExpenseItem, '_id' | 'userId'> = {
+            name,
+            cost,
         }
         const saveExpense: AxiosResponse<AddExpenseApi> = await axios.post(
-            baseUrl + API_PATHS.addExpense,
+            pathWithUserId(API_PATHS.addExpense, userId),
             expense
         )
         return saveExpense
@@ -39,14 +48,29 @@ export const addExpense = async (
 }
 
 export const deleteTodo = async (
-    _id: string
+    _id: string,
+    userId: string
 ): Promise<AxiosResponse<RemoveExpenseApi>> => {
     try {
         const deletedExpense: AxiosResponse<RemoveExpenseApi> =
             await axios.delete(
-                baseUrl + API_PATHS.deleteExpense.replace('$_id', _id)
+                pathWithId(pathWithUserId(API_PATHS.deleteExpense, userId), _id)
             )
         return deletedExpense
+    } catch (err) {
+        throw new Error(err)
+    }
+}
+
+export const getUser = async (
+    loginInfo: Pick<User, 'username' | 'password'>
+): Promise<AxiosResponse<GetUserApi>> => {
+    try {
+        const userData: AxiosResponse<GetUserApi> = await axios.post(
+            API_PATHS.getUser,
+            loginInfo
+        )
+        return userData
     } catch (err) {
         throw new Error(err)
     }

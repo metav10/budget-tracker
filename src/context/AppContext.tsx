@@ -3,7 +3,11 @@ import { Actions, InitialState } from '../lib/interfaces'
 import AppReducer from './AppReducer'
 
 const initialState: InitialState = {
-    budget: 0,
+    user: {
+        _id: '',
+        username: '',
+        budget: 0,
+    },
     expenses: [],
 }
 
