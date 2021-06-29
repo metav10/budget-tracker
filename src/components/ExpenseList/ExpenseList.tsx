@@ -1,13 +1,13 @@
-import { useContext } from 'react'
-import { AppContext } from '../../context/AppContext'
-import { ExpenseItem as ExpenseItemInterface } from '../../lib/interfaces'
+import { useSelector } from 'react-redux'
+import {
+    ExpenseItem as ExpenseItemInterface,
+    InitialState,
+} from '../../lib/interfaces'
 import ExpenseItem from './ExpenseItem/ExpenseItem'
 import * as S from './ExpenseList.styles'
 
 const ExpenseList = () => {
-    const {
-        state: { expenses },
-    } = useContext(AppContext)
+    const { expenses } = useSelector((state: InitialState) => state)
 
     return (
         <S.ExpenseList>
@@ -18,4 +18,5 @@ const ExpenseList = () => {
         </S.ExpenseList>
     )
 }
+
 export default ExpenseList

@@ -1,19 +1,20 @@
-import React, { useContext, useState } from 'react'
-import { addExpense } from '../../API'
-import { AppContext } from '../../context/AppContext'
-import { ActionsTypes, ExpenseItem } from '../../lib/interfaces'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { addExpense } from '../../lib/API'
+import { ExpenseItem, InitialState } from '../../lib/interfaces'
 import AddExpensesContent from './AddExpensesContent'
+import { updateExpenses } from '../../store/expenses'
 
 const AddExpenses = () => {
-    const {
-        dispatch,
-        state: { user },
-    } = useContext(AppContext)
+    const { user } = useSelector((state: InitialState) => state)
+    const dispatch = useDispatch()
     const [name, setName] = useState<string>('')
     const [cost, setCost] = useState<string>('')
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if (name === '' || cost === '') return
+
         const expenseItem = {
             name,
             cost: parseInt(cost),
@@ -21,14 +22,12 @@ const AddExpenses = () => {
 
         try {
             const newExpenses = await addExpense(expenseItem, user._id)
-            dispatch({
-                type: ActionsTypes.UPDATE_EXPENSES,
-                payload: newExpenses.data.expenses,
-            })
+            dispatch(updateExpenses(newExpenses.data.expenses))
             setName('')
             setCost('')
         } catch (err) {
             console.error(err)
+        } finally {
         }
     }
 
@@ -42,4 +41,5 @@ const AddExpenses = () => {
         />
     )
 }
+
 export default AddExpenses

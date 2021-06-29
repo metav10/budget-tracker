@@ -1,21 +1,16 @@
-import React, { useContext } from 'react'
-import { AppContext } from '../../../context/AppContext'
+import { useSelector } from 'react-redux'
+import { InitialState } from '../../../lib/interfaces'
+import { totalExpenses } from '../../../lib/utils'
 import StatusBox from '../StatusBox/StatusBox'
 import * as S from './Remaining.styles'
 
 const Remaining = () => {
     const {
-        state: {
-            expenses,
-            user: { budget },
-        },
-    } = useContext(AppContext)
+        expenses,
+        user: { budget },
+    } = useSelector((state: InitialState) => state)
 
-    const totalExpenses = expenses.reduce(
-        (total, exp) => (total += exp.cost),
-        0
-    )
-    const remaining = budget - totalExpenses
+    const remaining = budget - totalExpenses(expenses)
 
     return (
         <StatusBox
@@ -29,4 +24,5 @@ const Remaining = () => {
         />
     )
 }
+
 export default Remaining

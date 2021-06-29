@@ -20,19 +20,6 @@ export interface User {
     updatedAt?: string
 }
 
-export type Actions =
-    | { type: ActionsTypes.UPDATE_EXPENSES; payload: ExpenseItem[] }
-    | { type: ActionsTypes.ADD_EXPENSE; payload: ExpenseItem }
-    | { type: ActionsTypes.REMOVE_EXPENSE; payload: { _id: string } }
-    | { type: ActionsTypes.USER_LOGGED; payload: User }
-
-export enum ActionsTypes {
-    UPDATE_EXPENSES = 'UPDATE_EXPENSES',
-    ADD_EXPENSE = 'ADD_EXPENSE',
-    REMOVE_EXPENSE = 'REMOVE_EXPENSE',
-    USER_LOGGED = 'USER_LOGGED',
-}
-
 //? API REQ
 export enum API_PATHS {
     expenses = '/expenses/:userId',

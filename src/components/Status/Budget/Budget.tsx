@@ -1,14 +1,13 @@
-import { useContext } from 'react'
-import { AppContext } from '../../../context/AppContext'
+import { useSelector } from 'react-redux'
+import { InitialState } from '../../../lib/interfaces'
 import StatusBox from '../StatusBox/StatusBox'
 import * as S from './Budget.styles'
 
 const Budget = () => {
     const {
-        state: {
-            user: { budget },
-        },
-    } = useContext(AppContext)
+        user: { budget },
+    } = useSelector((state: InitialState) => state)
     return <StatusBox title="Budget:" content={budget} theme={S.BudgetTheme} />
 }
+
 export default Budget

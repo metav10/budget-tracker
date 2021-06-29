@@ -7,8 +7,8 @@ import {
     RemoveExpenseApi,
     GetUserApi,
     API_PATHS,
-} from './lib/interfaces'
-import axios from './lib/axios'
+} from './interfaces'
+import axios from './axios'
 
 const pathWithUserId = (path: string, userId: string) =>
     path.replace(':userId', userId)

@@ -1,23 +1,19 @@
-import { useContext } from 'react'
-import { AppContext } from '../../../context/AppContext'
+import { useSelector } from 'react-redux'
+import { InitialState } from '../../../lib/interfaces'
+import { totalExpenses } from '../../../lib/utils'
 import StatusBox from '../StatusBox/StatusBox'
 import * as S from './ExpenseTotal.styles'
 
 const ExpenseTotal = () => {
-    const {
-        state: { expenses },
-    } = useContext(AppContext)
-    const totalExpenses = expenses.reduce(
-        (total, exp) => (total += exp.cost),
-        0
-    )
+    const { expenses } = useSelector((state: InitialState) => state)
 
     return (
         <StatusBox
             title="SPENT SO FAR:"
-            content={totalExpenses}
+            content={totalExpenses(expenses)}
             theme={S.ExpenseTotalTheme}
         />
     )
 }
+
 export default ExpenseTotal

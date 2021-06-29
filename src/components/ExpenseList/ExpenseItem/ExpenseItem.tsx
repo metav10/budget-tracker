@@ -1,25 +1,20 @@
-import { useContext } from 'react'
-import { deleteTodo } from '../../../API'
-import { AppContext } from '../../../context/AppContext'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteTodo } from '../../../lib/API'
 import {
-    ActionsTypes,
     ExpenseItem as ExpenseItemInterface,
+    InitialState,
 } from '../../../lib/interfaces'
 import ExpenseItemContent from './ExpenseItemContent'
+import { updateExpenses } from '../../../store/expenses'
 
 const ExpenseItem = ({ item }: { item: ExpenseItemInterface }) => {
-    const {
-        dispatch,
-        state: { user },
-    } = useContext(AppContext)
+    const { user } = useSelector((state: InitialState) => state)
+    const dispatch = useDispatch()
 
     const removeExpenseItem = async (id: string) => {
         try {
             const newExpenses = await deleteTodo(id, user._id)
-            dispatch({
-                type: ActionsTypes.UPDATE_EXPENSES,
-                payload: newExpenses.data.expenses,
-            })
+            dispatch(updateExpenses(newExpenses.data.expenses))
         } catch (err) {
             console.error(err)
         }
@@ -29,4 +24,5 @@ const ExpenseItem = ({ item }: { item: ExpenseItemInterface }) => {
         <ExpenseItemContent item={item} removeExpenseItem={removeExpenseItem} />
     )
 }
+
 export default ExpenseItem

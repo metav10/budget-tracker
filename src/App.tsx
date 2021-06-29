@@ -1,13 +1,14 @@
-import { useContext, useEffect } from 'react'
-import { getExpenses, getUser } from './API'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { getExpenses, getUser } from './lib/API'
 import AddExpenses from './components/AddExpenses/AddExpenses'
 import ExpenseList from './components/ExpenseList/ExpenseList'
 import Status from './components/Status/Status'
-import { AppContext } from './context/AppContext'
-import { ActionsTypes } from './lib/interfaces'
+import { logUser } from './store/user'
+import { updateExpenses } from './store/expenses'
 
 function App() {
-    const { dispatch } = useContext(AppContext)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         ;(async function fetchUserData() {
@@ -16,22 +17,16 @@ function App() {
                 password: '1',
             })
                 .then(async ({ data: { user } }) => {
-                    dispatch({
-                        type: ActionsTypes.USER_LOGGED,
-                        payload: user,
-                    })
+                    dispatch(logUser(user))
                     await getExpenses(user._id)
                         .then(({ data: { expenses } }) =>
-                            dispatch({
-                                type: ActionsTypes.UPDATE_EXPENSES,
-                                payload: expenses,
-                            })
+                            dispatch(updateExpenses(expenses))
                         )
                         .catch((err: Error) => console.error(err))
                 })
                 .catch((err: Error) => console.error(err))
         })()
-    }, [dispatch])
+    }, [])
 
     return (
         <>

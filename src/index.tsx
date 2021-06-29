@@ -1,15 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
-import { AppProvider } from './context/AppContext'
+import { createStore, Store, combineReducers, Reducer } from 'redux'
+import { Provider } from 'react-redux'
 import { GlobalStyle } from './style/GlobalStyle'
+import App from './App'
+import { InitialState } from './lib/interfaces'
+import expensesReducer from './store/expenses'
+import userReducer from './store/user'
+
+const reducers = combineReducers({
+    user: userReducer,
+    expenses: expensesReducer,
+})
+
+const store: Store<InitialState> = createStore(
+    reducers,
+    //@ts-ignore
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 ReactDOM.render(
     <React.StrictMode>
         <GlobalStyle />
-        <AppProvider>
+        <Provider store={store}>
             <App />
-        </AppProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 )
