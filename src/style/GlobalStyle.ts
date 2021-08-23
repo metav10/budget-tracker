@@ -7,7 +7,13 @@ export const GlobalStyle = createGlobalStyle`
         height: 100%;
         background: #fafafa;
         font-family: Arial, Helvetica, sans-serif;
-        color: ${Colors.MainBlack}
+        color: ${Colors.MainBlack};
+        max-width: 400px;
+        margin: auto;
+    }
+
+    #root {
+        height: 100%;
     }
 
     * {
@@ -18,10 +24,5 @@ export const GlobalStyle = createGlobalStyle`
 
     a {
         text-decoration: none;
-    }
-
-    h1, h2 {
-        padding: 20px;
-        font-weight: 500;
     }
 `

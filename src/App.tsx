@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getExpenses, getUser } from './lib/API'
-import AddExpenses from './components/AddExpenses/AddExpenses'
-import ExpenseList from './components/ExpenseList/ExpenseList'
-import Status from './components/Status/Status'
+import Home from './modals/home/Home'
 import { logUser } from './store/user'
 import { updateExpenses } from './store/expenses'
+import NavBar from './components/NavBar/NavBar'
 
 function App() {
     const dispatch = useDispatch()
@@ -26,18 +25,12 @@ function App() {
                 })
                 .catch((err: Error) => console.error(err))
         })()
-    }, [])
+    }, [dispatch])
 
     return (
         <>
-            <div>
-                <h1>Budget Tracker</h1>
-                <Status />
-                <h2>Add Expense</h2>
-                <AddExpenses />
-                <h2>Expenses</h2>
-                <ExpenseList />
-            </div>
+            <Home />
+            <NavBar activePage={'home'} />
         </>
     )
 }

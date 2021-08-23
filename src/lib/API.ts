@@ -47,7 +47,7 @@ export const addExpense = async (
     }
 }
 
-export const deleteTodo = async (
+export const deleteExpense = async (
     _id: string,
     userId: string
 ): Promise<AxiosResponse<RemoveExpenseApi>> => {

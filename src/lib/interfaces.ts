@@ -20,6 +20,8 @@ export interface User {
     updatedAt?: string
 }
 
+export type ActivePage = 'home' | 'stats' | 'user'
+
 //? API REQ
 export enum API_PATHS {
     expenses = '/expenses/:userId',
@@ -27,7 +29,6 @@ export enum API_PATHS {
     deleteExpense = '/expenses/:userId/delete/:_id',
     getUser = '/users',
 }
-
 interface BaseApiTypes {
     message: string
     status: string
