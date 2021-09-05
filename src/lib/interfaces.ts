@@ -22,6 +22,22 @@ export interface User {
 
 export type ActivePage = 'home' | 'stats' | 'user'
 
+export enum tags {
+    'Food',
+    'Entertament',
+    'Going Out',
+}
+
+type tagsInterface = {
+    [tag in tags]: string
+}
+
+export const tagsAndColors: tagsInterface = {
+    [tags['Food']]: '#443322',
+    [tags['Entertament']]: '#223344',
+    [tags['Going Out']]: '#903441',
+}
+
 //? API REQ
 export enum API_PATHS {
     expenses = '/expenses/:userId',

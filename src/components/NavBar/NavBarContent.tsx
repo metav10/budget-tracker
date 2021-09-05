@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { ActivePage } from '../../lib/interfaces'
-import AddExpense from './AddExpense/AddExpense'
+import AddExpense from '../AddExpense/AddExpense'
 import AddExpenseButton from './AddExpenseButton/AddExpenseButton'
 import * as S from './NavBar.styles'
 

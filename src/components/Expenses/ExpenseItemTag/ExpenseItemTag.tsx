@@ -1,11 +1,7 @@
+import { tagsAndColors } from '../../../lib/interfaces'
 import * as S from './ExpenseItemTag.styles'
 
 const ExpenseItemTag = ({ tagId }: { tagId: number }) => {
-    enum tagsAndColors {
-        'Food' = '#443322',
-        'Entertament' = '#223344',
-        'Going Out' = '#903441',
-    }
     const enumByTagId = Object.entries(tagsAndColors)[tagId]
     return (
         <S.ExpenseItemTag color={enumByTagId[1]}>
